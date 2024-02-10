@@ -4,6 +4,7 @@ import urllib.request
 import boto3
 
 API_KEY = os.environ['API_KEY']
+ARN = os.environ['SNS_ARN']
 client = boto3.client('sns')
 def lambda_handler(event, context):
   api_url = "https://api.openweathermap.org/data/2.5/weather?"
@@ -38,7 +39,7 @@ def lambda_handler(event, context):
     sent_message = json.dumps(return_body)
 
     response = client.publish(
-      TopicArn='arn:aws:sns:us-east-2:790066513427:sns-email-drew',
+      TopicArn=ARN,
       Message=sent_message
     )
 
